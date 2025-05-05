@@ -69,24 +69,24 @@ const skillsData: string[] = [
 
 const smartContractsData: SmartContract[] = [
   {
-    title: "ERC721 NFT Contract",
-    description: "A standard compliant ERC721 implementation for unique digital assets (NFTs) using OpenZeppelin.",
-    github: "https://github.com/yashsharma22003/your-erc721-repo" // <-- Replace with your actual repo link
+    title: "Prediction Market",
+    description: "A Binary Prediction Market based on falre network and utilized FTSO V2 for price feeds",
+    github: "https://github.com/yashsharma22003/Uniswap-Prediction/tree/main/Prediction-market" // <-- Replace with your actual repo link
   },
   {
-    title: "Decentralized Voting System",
-    description: "Smart contract enabling on-chain voting for proposals, ensuring transparency and immutability.",
-    github: "https://github.com/yashsharma22003/your-voting-repo" // <-- Replace with your actual repo link
+    title: "Estate Tokenizer",
+    description: "Smart contract enabling on-chain tokenization of real estate properties, ensuring transparency and immutability in record keeping of real estates.",
+    github: "https://github.com/yashsharma22003/Estate-Tokenizer/tree/main/hardhat/contracts" // <-- Replace with your actual repo link
   },
   {
-    title: "Simple ERC20 Token",
-    description: "A basic implementation of the ERC20 token standard for fungible tokens.",
-    github: "https://github.com/yashsharma22003/your-erc20-repo" // <-- Replace with your actual repo link
+    title: "Oracle Node",
+    description: "A basic implementation of the oracle services using Solidity smart contracts and Nodejs for oracle.",
+    github: "https://github.com/yashsharma22003/Local-Oracle-Hardhat.git" // <-- Replace with your actual repo link
   },
   {
-    title: "Reentrancy Guard Example",
-    description: "A contract demonstrating the implementation of a reentrancy guard to prevent common attacks.",
-    github: "https://github.com/yashsharma22003/your-security-example-repo" // <-- Replace with your actual repo link
+    title: "Crypto Zombies",
+    description: "A Solidity smart contract based zombie game, which lives on-chain!!.",
+    github: "https://github.com/yashsharma22003/CryptoZombie.git" // <-- Replace with your actual repo link
   },
 ];
 
@@ -195,7 +195,7 @@ export default function HomePage() {
       className="min-h-screen bg-gray-950 text-white px-6 py-12 flex flex-col items-center overflow-x-hidden"
     >
       {/* HERO SECTION */}
-      <section className="max-w-4xl text-center my-40 md:my-60 w-full">
+      <section className="max-w-4xl text-center my-40 md:my-72 w-full">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 hero-title">
           Hi, I'm <span className="text-blue-500">Yash Sharma</span>
         </h1>
@@ -216,42 +216,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS - MODIFIED */}
+     {/* FEATURED PROJECTS - Different Internal Flex Approach */}
       <section className="w-full max-w-4xl mb-20">
         <h2 className="text-2xl font-semibold text-left mb-8 section-title">Featured Projects</h2>
-        <div className="grid md:grid-cols-2 gap-10 projects-grid">
+        {/* Still using CSS Grid for the main layout */}
+        <div className="grid md:grid-cols-1 gap-10 projects-grid">
           {featuredProjectsData.map((project) => (
             <div
               key={project.title}
-              // Removed height/min-height, let content dictate size. Added overflow hidden for image rounding
-              className="bg-gray-900 rounded-2xl shadow-lg flex flex-col justify-between transition-transform duration-300 ease-out hover:scale-[1.03] project-card overflow-hidden"
+              // Keep h-full on the card (grid item) to ensure it fills grid row height
+              className="bg-gray-900 rounded-2xl shadow-lg flex flex-col h-full transition-transform duration-300 ease-out hover:scale-[1.03] project-card overflow-hidden"
             >
-              {/* Image Container */}
-              <div className="relative w-full h-48 sm:h-56"> {/* Fixed height container */}
+              {/* Image Container - Remains the same */}
+              <div className="relative w-full h-48 sm:h-56">
                 <Image
                   src={project.imageUrl}
                   alt={`${project.title} preview`}
                   fill
-                  style={{ objectFit: 'cover' }} // Use objectFit cover
-                  className="transition-opacity duration-300 ease-out group-hover:opacity-90" // Basic styling
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes - adjust as needed
+                  style={{ objectFit: 'cover' }}
+                  className="transition-opacity duration-300 ease-out group-hover:opacity-90"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
 
-              {/* Content Below Image */}
-              <div className="p-5 flex flex-col flex-grow"> {/* Added flex-grow */}
+              {/* Content Below Image - Modified Internal Flex */}
+              {/* Keep flex-grow on this container to fill remaining card space */}
+              <div className="p-5 flex flex-col flex-grow">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-400 text-sm mb-4 flex-grow">{project.description}</p> {/* Added flex-grow */}
+                {/* REMOVED flex-grow from description paragraph */}
+                <p className="text-gray-400 text-sm mb-4">{project.description}</p>
 
                 {/* Buttons at the bottom */}
-                <div className="flex gap-3 mt-auto pt-2"> {/* Increased gap */}
+                {/* ADDED mt-auto HERE to push this div to the bottom of its flex container (.p-5) */}
+                <div className="flex gap-3 mt-auto pt-2"> {/* pt-2 adds padding above buttons */}
                   <Link href={project.link} target="_blank" className="inline-block flex-1">
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-out text-sm w-full">
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-out text-sm w-full hover:cursor-pointer">
                       Live Demo
                     </button>
                   </Link>
                   <Link href={project.github} target="_blank" className="inline-block flex-1">
-                    <button className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors duration-300 ease-out text-sm w-full flex items-center justify-center gap-2">
+                    <button className="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors duration-300 ease-out text-sm w-full flex items-center justify-center gap-2  hover:cursor-pointer">
                       <Github size={16} />
                       View Code
                     </button>
@@ -267,7 +271,7 @@ export default function HomePage() {
 
       {/* SKILLS */}
       <section className="w-full max-w-4xl mt-16 mb-20">
-        <h2 className="text-2xl font-semibold text-left mb-8 section-title">Skills</h2>
+        <h2 className="text-2xl font-semibold text-left mb-16 section-title">Skills</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 skills-grid">
           {skillsData.map((skill) => (
             <div key={skill} className="bg-gray-900 rounded-lg p-4 text-center transition-colors duration-500 ease-out hover:bg-gradient-to-r hover:from-blue-900 hover:to-purple-900 hover:text-white shadow-md skill-item">
@@ -279,7 +283,7 @@ export default function HomePage() {
 
       {/* SMART CONTRACT SHOWCASE */}
       <section className="w-full max-w-4xl mt-16 mb-20">
-        <h2 className="text-2xl font-semibold text-left mb-8 section-title">Smart Contract Showcase</h2>
+        <h2 className="text-2xl font-semibold text-left mb-16 section-title">Smart Contract Showcase</h2>
         <div className="grid md:grid-cols-2 gap-8 contracts-grid">
           {smartContractsData.map((contract) => (
             <div
@@ -292,7 +296,7 @@ export default function HomePage() {
               </div>
               <div className="mt-auto pt-2">
                 <Link href={contract.github} target="_blank" className="inline-block w-full">
-                  <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-300 ease-out text-sm w-full flex items-center justify-center gap-2">
+                  <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-300 ease-out text-sm w-full flex items-center justify-center gap-2  hover:cursor-pointer">
                     <Github size={16} />
                     View Code
                   </button>
@@ -307,9 +311,9 @@ export default function HomePage() {
 
       {/* TIMELINE */}
       <section className="w-full max-w-4xl mt-16 mb-20">
-        <h1 className="text-2xl font-semibold text-left mb-10 section-title">What am I doing?</h1>
+        <h1 className="text-2xl font-semibold text-left mb-16 section-title">What I am doing?</h1>
         <div className="border-l-2 border-blue-500 pl-6 md:pl-8 space-y-10 relative timeline-container">
-          <div className="absolute -left-[1px] -top-1 w-4 h-4 bg-gray-950 rounded-full border-2 border-blue-500"></div>
+          <div className="absolute -left-[8.5px] -top-5 w-4 h-4 bg-gray-950 rounded-full border-2 border-blue-500"></div>
           {timelineData.map((item, index) => (
             <div className="relative timeline-item" key={item.title + index}>
               <div className="absolute -left-[22px] md:-left-[26px] top-1 w-4 h-4 bg-blue-500 rounded-full border-2 border-gray-950"></div>
@@ -358,9 +362,7 @@ export default function HomePage() {
           <Link href="mailto:yashsharma22003@gmail.com" target="_blank" aria-label="Email Yash Sharma">
             <Mail className="hover:text-blue-500 transition-colors duration-300 ease-out" size={32} />
           </Link>
-          <Link href="https://yashsharma.dev" target="_blank" aria-label="Personal Website">
-            <Globe className="hover:text-blue-500 transition-colors duration-300 ease-out" size={32} />
-          </Link>
+        
         </div>
       </section>
 
